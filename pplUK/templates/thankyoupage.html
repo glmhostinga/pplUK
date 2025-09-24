@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Purchase Confirmation</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background-color: #f5f7fc;
+      color: #1c1e21;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: whrgb(250, 248, 245)ite;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      padding: 30px;
+    }
+
+    .header {
+      text-align: center;
+      padding-bottom: 20px;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      font-size: 14px;
+      color: #5f6368;
+      margin-top: 0;
+    }
+
+    .section {
+      border: 1px solid #e2e4ea;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      background-color: #fdfdfd;
+    }
+
+    .item-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .label {
+      font-weight: 600;
+    }
+
+    .summary {
+      border-top: 1px solid #dcdcdc;
+      margin-top: 15px;
+      padding-top: 10px;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .footer {
+      font-size: 14px;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    .footer div {
+      margin-bottom: 6px;
+    }
+
+    .footer span {
+      font-weight: 600;
+    }
+
+    .footer .id {
+      font-family: monospace;
+      font-size: 13px;
+    }
+
+    .paypal {
+      text-align: center;
+      font-size: 13px;
+      color: #666;
+      margin-top: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        margin: 20px;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      
+      <h1>Thank you for your purchase of ${{ amount }}!</h1>
+<p>Reason: {{ reason }}</p>
+
+      <p>Your payment is currently being processed.</p>
+    </div>
+
+    <div class="section">
+      <div class="item-row">
+        <div class="label">ppl</div>
+        <div>Qty: 1</div>
+      </div>
+      <div class="item-row">
+        <div></div>
+        <div> $<span id="thankYouAmount"></span></div>
+      </div>
+
+      <div class="summary">
+        <div class="item-row">
+          <div>Subtotal</div>
+          <div> $<span id="thankYouAmount"></span></div>
+        </div>
+        <div class="total-row">
+          <div>Total</div>
+          <div>$1.00 USD</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section footer">
+      <div><span>Paid with:</span> PayPal</div>
+      <div><span>Order date:</span> 1 August 2025</div>
+      <div><span>Confirmation email:</span> emmanuelkibet12322@gmail.com</div>
+      <div><span>Transaction ID:</span> <span class="id">81Y00883RW2745122</span></div>
+    </div>
+
+    <div class="paypal">Powered by <strong>PayPal</strong></div>
+  </div>
+
+  <script>
+    // Helper to extract query parameters
+    function getQueryParam(param) {
+        const params = new URLSearchParams(window.location.search);
+        return params.get(param);
+    }
+
+    // Set amount in thank you message
+    const amount = getQueryParam("amount") || "0.00";
+    document.getElementById("thankYouAmount").innerText = amount;
+</script>
+
+</body>
+</html>
